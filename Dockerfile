@@ -21,7 +21,7 @@ FROM fluent/fluentd:v1.1.3-debian
 WORKDIR /home/fluent
 ENV PATH /home/fluent/.gem/ruby/2.3.0/bin:$PATH
 
-RUN apt-get update && apt-get upgrade && rm -rf /var/lib/apt/lists/* &&  mkdir -p /mnt/pos
+RUN apt-get update && apt-get dist-upgrade -y && rm -rf /var/lib/apt/lists/* &&  mkdir -p /mnt/pos
 EXPOSE 24284
 
 RUN mkdir -p /fluentd/conf.d && \
