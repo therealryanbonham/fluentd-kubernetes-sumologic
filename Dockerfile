@@ -5,7 +5,6 @@ ENV PATH /home/fluent/.gem/ruby/2.3.0/bin:$PATH
 # New fluent image dynamically creates user in entrypoint
 RUN [ -f /bin/entrypoint.sh ] && /bin/entrypoint.sh echo || : && \
     apt-get update && \
-    apt-get dist-upgrade && \
     apt-get install -y build-essential ruby-dev libffi-dev libsystemd-dev && \
     gem install fluent-plugin-systemd -v 0.3.1 && \
     gem install fluent-plugin-record-reformer -v 0.9.1 && \
@@ -22,7 +21,7 @@ FROM fluent/fluentd:v1.1.3-debian
 WORKDIR /home/fluent
 ENV PATH /home/fluent/.gem/ruby/2.3.0/bin:$PATH
 
-RUN mkdir -p /mnt/pos
+RUN apt-get update && apt-get upgrade && rm -rf /var/lib/apt/lists/* &&  mkdir -p /mnt/pos
 EXPOSE 24284
 
 RUN mkdir -p /fluentd/conf.d && \
